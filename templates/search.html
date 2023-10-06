@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search results</title>
+</head>
+<body>
+    <h1 id="title">Note Taking App</h1>
+    <hr />
+    <h3>Results of searching for {{ keyword }}</h3>
+    <a href="/">Go back to home page</a>
+    <div id="notes">
+        {% for note in notes %}
+            <div>
+                <span>{{ note.name }} {{ note.date }}</span>
+            </div>
+        {% endfor %}
+        {% if notes|length == 0 %}
+            <p>Sorry no results found</p>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Notes</title>
+</head>
+<body>
+    <h1 id="title">Note Taking App</h1>
+    <div id="action-btns">
+        <form action="/add-note">
+            <input type="text" name="name" id="note-name" placeholder="Note">
+            <input type="text" name="description" id="note-description" placeholder="Add note description">
+            <button>Add</button>
+        </form>
+        <form action="/delete-all-notes">
+            <button id="clear-all">Clear All</button>
+        </form>
+        <form action="/" method="get">
+            <input type="text" name="keyword" id="search-input" placeholder="Search for a note">
+            <button>Search</button>
+        </form>
+    </div>
+    <div id="notes">
+        {% for note in notes %}
+            <div>
+                <span>{{ note.name }} {{ note.date }}</span>
+                <form style="display: inline;" action="/delete-note">
+                    <input type="hidden" name="id" value="{{ note.id }}">
+                    <button>Delete note</button>
+                </form>
+            </div>
+        {% endfor %}
+        {% if notes|length == 0 %}
+            <p>There is no notes to show</p>
+        {% endif %}
+    </div>
+</body>
+</html>
