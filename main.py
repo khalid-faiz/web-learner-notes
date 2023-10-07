@@ -42,6 +42,10 @@ def index():
         
         # render results
         return render_template("search.html", notes=filteredNotes, keyword=keyword)
+    
+    if request.full_path == "/?keyword=":
+        return redirect("/")
+        
     # render homepage
     return render_template("index.html", notes=notes)
 
@@ -66,6 +70,63 @@ def addNote():
     # go back to the home page once we add the note
     return redirect("/")
 
+# route for viewing the datails
+@app.route('/note-details')
+def noteDetails():
+    global notes
+
+    if request.args.get("id"):
+        # fetch id
+        noteID = request.args.get("id")
+        # filter out the note which should be deleted
+        noteToShow = list(filter(lambda x: x["id"] == noteID, notes))[0]
+
+        # render with the details template
+        return render_template("details.html",note=noteToShow)
+
+# route for editing a note
+@app.route('/edit-note')
+def editNote():
+    global notes
+
+    args = request.args
+
+    # for editing the note
+    if args.get("id") and args.get("name"):
+        # fetch info
+        edittedNote = {
+            "id": args.get("id"),
+            "name": args.get("name"),
+            "description": args.get("description"),
+            "date": args.get("date")
+        }
+
+        # updating the notes and dumping
+        updatedNotes = []
+        for note in notes:
+            if note["id"] == edittedNote["id"]:
+                updatedNotes.append(edittedNote)
+            else:
+                updatedNotes.append(note)
+        
+        notes = updatedNotes
+        with open("notes.json", "w") as notesDb:
+            notesDb.write(json.dumps(notes))
+        
+        # render home
+        return redirect("/")
+
+
+    if args.get("id"):
+        # fetch id
+        noteID = request.args.get("id")
+        # filter out the note which should be deleted
+        noteToShow = list(filter(lambda x: x["id"] == noteID, notes))[0]
+
+        # render with the details template
+        return render_template("edit.html",note=noteToShow)
+
+# route for deleting a note
 @app.route('/delete-note')
 def deleteNote():
     # edit the global notes variable
@@ -74,6 +135,7 @@ def deleteNote():
     if request.args.get("id"):
         # fetch id
         noteID = request.args.get("id")
+        print(noteID)
         # filter out the note which should be deleted
         noteToDelete = list(filter(lambda x: x["id"] == noteID, notes))[0]
         # remove the note and dump the list to json

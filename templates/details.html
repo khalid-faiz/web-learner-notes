@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Note Details</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <span id="hello"></span>
+    <h1 id="title">Note Taking App</h1>
+    <h3>Details of the note {{ note.name }}</h3>
+    <br>
+    <div id="details-btns">
+        <a href="/" id="back-to-home">Go back to home page</a>
+        <button id="delete-note" onclick="confirmDelete('{{ note.id }}')">Delete Note</button>
+        <form action="/edit-note" style="display: inline;">
+            <input type="hidden" name="id" value="{{ note.id }}">
+            <button id="edit-note">Edit Note</button>
+        </form>
+    </div>
+    <br>
+    <br>
+    <div id="note">
+        <table>
+            <tr>
+                <td width="25%">Name</td>
+                <td>{{ note.name }}</td>
+            </tr>
+            <tr>
+                <td>Discription</td>
+                <td>{{ note.description }}</td>
+            </tr>
+            <tr>
+                <td>Date created</td>
+                <td>{{ note.date }}</td>
+            </tr>
+        </table>
+    </div>
+    <div id="notify"></div>
+    <script src="/static/script.js"></script>
+</body>
+</html>

@@ -2,22 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Search results</title>
+    <title>Search Results</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+    <span id="hello"></span>
     <h1 id="title">Note Taking App</h1>
     <hr />
     <h3>Results of searching for {{ keyword }}</h3>
-    <a href="/">Go back to home page</a>
+    <br>
+    <a href="/" id="back-to-home">Go back to home page</a>
+    <br>
+    <br>
     <div id="notes">
-        {% for note in notes %}
-            <div>
-                <span>{{ note.name }} {{ note.date }}</span>
-            </div>
-        {% endfor %}
+        <table id="search-results">
+            <tr>
+                <th width="25%">Name</th>
+                <th width="50%">Discription</th>
+                <th width="25%">Date created</th>
+            </tr>
+                {% for note in notes %}
+                <tr>
+                    <td>{{ note.name }}</td>
+                    <td>{{ note.description }}</td>
+                    <td>{{ note.date }}</td>
+                </tr>
+                {% endfor %}
+        </table>
         {% if notes|length == 0 %}
             <p>Sorry no results found</p>
         {% endif %}
     </div>
+    <div id="notify"></div>
+    <script src="/static/script.js"></script>
 </body>
 </html>

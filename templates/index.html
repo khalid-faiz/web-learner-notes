@@ -3,36 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Web Notes</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+    <span id="hello"></span>
     <h1 id="title">Note Taking App</h1>
     <div id="action-btns">
-        <form action="/add-note">
+        <form action="/add-note" onsubmit="return validateAddition()">
             <input type="text" name="name" id="note-name" placeholder="Note">
             <input type="text" name="description" id="note-description" placeholder="Add note description">
             <button>Add</button>
         </form>
-        <form action="/delete-all-notes">
-            <button id="clear-all">Clear All</button>
-        </form>
-        <form action="/" method="get">
+        <form action="/" method="get" onsubmit="return validateSearch()">
             <input type="text" name="keyword" id="search-input" placeholder="Search for a note">
             <button>Search</button>
         </form>
+        <button id="clear-all" onclick="confirmClearAll()">Clear All</button>
     </div>
     <div id="notes">
         {% for note in notes %}
             <div>
-                <span>{{ note.name }} {{ note.date }}</span>
-                <form style="display: inline;" action="/delete-note">
+                <span>{{ note.name }}</span>
+                <form style="display: inline;" action="/note-details">
                     <input type="hidden" name="id" value="{{ note.id }}">
-                    <button>Delete note</button>
+                    <button>Note Details</button>
                 </form>
             </div>
         {% endfor %}
         {% if notes|length == 0 %}
-            <p>There is no notes to show</p>
+            <p>There are no notes to show</p>
         {% endif %}
     </div>
+    <div id="notify"></div>
+    <script src="/static/script.js"></script>
 </body>
 </html>
