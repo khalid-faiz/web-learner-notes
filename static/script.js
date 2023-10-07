@@ -35,7 +35,10 @@ if (localStorage.getItem("note-user-name") == null) {
         <form action="" id="user-name-form">
             <input type="text" name="user" id="user-name-input">
             <br>
-            <button id="modal-confirm" onclick="saveUser()">Confirm</button>
+            <span style="display:flex; flex-direction:row; gap: 1rem">
+                <button type="button" id="modal-reject" onclick="document.body.removeChild(document.getElementById('modal-container'))">Go Back</button>
+                <button id="modal-confirm" onclick="saveUser()">Confirm</button>
+            </span>
         </form>
     </div>`
 
@@ -63,9 +66,10 @@ function confirmDelete(NoteID) {
     <div id="modal-content">
         <h4 id="modal-title">Confirm Deletion</h4>
         <p>Are you sure you want to delete this note?</p>
-        <form action="/delete-note" id="user-name-form">
+        <form style="display:inline" action="/delete-note" id="user-name-form">
             <input type="hidden" name="id" value="${NoteID}">
             <br>
+            <button type="button" id="modal-reject" onclick="document.body.removeChild(document.getElementById('modal-container'))">Go Back</button>
             <button id="modal-confirm">Confirm</button>
         </form>
     </div>`
@@ -103,7 +107,8 @@ function confirmClearAll() {
     <div id="modal-content">
         <h4 id="modal-title">Confirm Deletion</h4>
         <p>Are you sure you want to delete <b>All Notes</b>?</p>
-        <form action="/delete-all-notes" id="user-name-form">
+        <button id="modal-reject" onclick="document.body.removeChild(document.getElementById('modal-container'))">Go Back</button>
+        <form style="display:inline" action="/delete-all-notes" id="user-name-form">
             <button id="modal-confirm">Confirm</button>
         </form>
     </div>`
@@ -155,6 +160,46 @@ function validateSearch() {
         let notify = document.getElementById("notify");
         notify.style.top = '5%'
         notify.innerHTML = "<p>Please add a search term.</p>"
+        setTimeout(() => {
+            setTimeout(()=>notify.innerHTML = "", 2000);
+            notify.style.top = '-15%';
+        }, 3000);
+        return false;
+    }
+}
+
+// validate edit
+function validateEdit() {
+    let noteName = document.getElementById("note-name").value;
+    let noteDescription = document.getElementById("note-description").value;
+    let noteDate = document.getElementById("note-date").value;
+    if (noteName == "") {
+        // send a message and get out
+        let notify = document.getElementById("notify");
+        notify.style.top = '5%'
+        notify.innerHTML = "<p>Note name can't be empty.</p>"
+        setTimeout(() => {
+            setTimeout(()=>notify.innerHTML = "", 2000);
+            notify.style.top = '-15%';
+        }, 3000);
+        return false;
+    }
+    if (noteDescription == "") {
+        // send a message and get out
+        let notify = document.getElementById("notify");
+        notify.style.top = '5%'
+        notify.innerHTML = "<p>Note description can't be empty.</p>"
+        setTimeout(() => {
+            setTimeout(()=>notify.innerHTML = "", 2000);
+            notify.style.top = '-15%';
+        }, 3000);
+        return false;
+    }
+    if (noteDate == "") {
+        // send a message and get out
+        let notify = document.getElementById("notify");
+        notify.style.top = '5%'
+        notify.innerHTML = "<p>Note date can't be empty.</p>"
         setTimeout(() => {
             setTimeout(()=>notify.innerHTML = "", 2000);
             notify.style.top = '-15%';

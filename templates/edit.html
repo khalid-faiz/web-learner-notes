@@ -16,20 +16,20 @@
     <br>
     <br>
     <div id="note">
-        <form action="/edit-note">
+        <form action="/edit-note" onsubmit="return validateEdit()">
             <input type="hidden" name="id" value="{{ note.id }}">
             <table>
                 <tr>
                     <td width="25%">Name</td>
-                    <td><input class="text-input" type="text" name="name" value="{{ note.name }}"></td>
+                    <td><input class="text-input" id="note-name" type="text" name="name" value="{{ note.name }}"></td>
                 </tr>
                 <tr>
                     <td>Discription</td>
-                    <td><input class="text-input" type="text" name="description" value="{{ note.description }}"></td>
+                    <td><input class="text-input" id="note-description" type="text" name="description" value="{{ note.description }}"></td>
                 </tr>
                 <tr>
                     <td>Date created</td>
-                    <td><input class="text-input" type="text" name="date" value="{{ note.date }}"></td>
+                    <td><input class="text-input" id="note-date" type="text" name="date" value="{{ note.date }}"></td>
                 </tr>
             </table>
             <button id="edit-note">Submit</button>

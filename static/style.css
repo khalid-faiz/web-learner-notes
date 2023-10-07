@@ -53,6 +53,7 @@ table{
 }
 #action-btns button,
 #modal-confirm,
+#modal-reject,
 #delete-note,
 #edit-note{
     color: #1F1F1F;
@@ -77,13 +78,20 @@ table{
 #edit-note:focus{
     box-shadow: rgba(255, 255, 255, 0.4) 1px 1px, rgba(255, 255, 255, 0.3) 2px 2px, rgba(255, 255, 255, 0.2) 3px 3px, rgba(255, 255, 255, 0.1) 4px 4px, rgba(255, 255, 255, 0.05) 5px 5px;
 }
-#modal-confirm{
+#modal-confirm,
+#modal-reject{
     background-color: #FF6E66 !important;
     box-shadow: rgba(0, 0, 0, 0.25) 1.95px 1.95px 2.6px !important;
 }
+#modal-reject{
+    background-color: #BB86FC !important;
+}
 #modal-confirm:hover,
 #modal-confirm:active,
-#modal-confirm:focus{
+#modal-confirm:focus,
+#modal-reject:hover,
+#modal-reject:active,
+#modal-reject:focus{
     cursor: pointer !important;
     box-shadow: rgba(0, 0, 0, 0.4) 1px 1px, rgba(0, 0, 0, 0.3) 2px 2px, rgba(0, 0, 0, 0.2) 3px 3px, rgba(0, 0, 0, 0.1) 4px 4px, rgba(0, 0, 0, 0.05) 5px 5px !important;
 }
